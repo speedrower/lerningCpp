@@ -4,6 +4,7 @@ using namespace std;
 int main()
 {
     int month;
+    cout << "The program checks how many days a given month has";
     cout << "Enter the month number (1-12): ";
     cin >> month;
 
@@ -36,3 +37,4 @@ int main()
 
     return 0;
 }
+
