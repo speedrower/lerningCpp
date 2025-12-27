@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string pin;
+    string checkPin;
+    int maxAttempts = 5;
+
+    cout << "Enter PIN: ";
+    cin >> pin;
+
+    for (int i = 1; i <= maxAttempts; i++) {
+        cout << "Repeat PIN: ";
+        cin >> checkPin;
+
+        if (checkPin == pin) {
+            cout << "PIN is correct" << endl;
+            return 0;
+        } else {
+            cout << "PIN is incorrect. Attempts left: "
+                 << maxAttempts - i << endl;
+        }
+    }
+
+    cout << "Access denied. Too many incorrect attempts." << endl;
+}
