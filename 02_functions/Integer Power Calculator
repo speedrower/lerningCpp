@@ -1,0 +1,30 @@
+#include <iostream>
+using namespace std;
+
+int power(int, int);
+
+int main() {
+    int x, w;
+    
+    cout << "This program calculates powers of an integer." << endl;
+    cout << "Enter the base number: ";
+    cin >> x;
+    cout << "Enter the exponent: ";
+    cin >> w;
+
+    if (w < 0) 
+        cout << "The exponent cannot be negative!" << endl;
+    else 
+        cout << x << " raised to the power of " << w << " is " << power(x, w) << endl;
+
+    return 0;
+}
+
+int power(int x, int w) {
+    
+    int x0 = x;
+    while (w-- > 1)
+        x = x * x0;
+
+    return x;
+}
