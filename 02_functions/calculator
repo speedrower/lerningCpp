@@ -2,90 +2,104 @@
 
 using namespace std;
 
-double add(double, double);
-double subtract(double, double);
-double multiply(double, double);
-double divide(double, double);
-double power(double, double);
+// Function declarations
+double add(double a, double b);
+double subtract(double a, double b);
+double multiply(double a, double b);
+double divide(double a, double b);
+double power(double a, int b);
 
-int main() {
+int main(){
     cout << "-------------------------------------" << endl;
-    cout << "|         Calculator v. 1.0         |" << endl;
-    cout << "|             Filip Bak             |" << endl;
+    cout << "|        Calculator v 1.0           |" << endl;
+    cout << "|            Filip Bak               |" << endl;
     cout << "-------------------------------------" << endl;
 
-    while (true) {
-        double a, b;
-      
+    char cont = 't';
+
+    while (cont == 't' || cont == 'T'){
+        double a, b_double;
+        int b_int;
+        char operation;
+
         cout << "Enter the first number: ";
         cin >> a;
-        cout << "Enter the second number: ";
-        cin >> b;
 
-        cout << "What operation do you want to perform?" << endl;
-        cout << "1. Addition (+)" << endl;
-        cout << "2. Subtraction (-)" << endl;
-        cout << "3. Multiplication (*)" << endl;
-        cout << "4. Division (/)" << endl;
-        cout << "5. Exponentiation (^)" << endl;
+        cout << "Which operation would you like to perform?" << endl;
+        cout << "+  Addition" << endl;
+        cout << "-  Subtraction" << endl;
+        cout << "*  Multiplication" << endl;
+        cout << "/  Division" << endl;
+        cout << "^  Power (integer exponent)" << endl;
 
-        char operation;
         cin >> operation;
 
-        switch (operation) {
-            case '+': case '1':
-                cout << a << " + " << b << " = " << add(a, b) << endl;
+        // Input for second number
+        if (operation == '^') {
+            cout << "Enter the exponent (integer): ";
+            cin >> b_int; // if user enters 2.7, it will be truncated to 2
+        } else {
+            cout << "Enter the second number: ";
+            cin >> b_double;
+        }
+
+        // Perform operation
+        switch (operation){
+            case '+':
+                cout << a << " + " << b_double << " = " << add(a, b_double) << endl;
                 break;
-            case '-': case '2':
-                cout << a << " - " << b << " = " << subtract(a, b) << endl;
+            case '-':
+                cout << a << " - " << b_double << " = " << subtract(a, b_double) << endl;
                 break;
-            case '*': case '3':
-                cout << a << " * " << b << " = " << multiply(a, b) << endl;
+            case '*':
+                cout << a << " * " << b_double << " = " << multiply(a, b_double) << endl;
                 break;
-            case '/': case '4':
-                cout << a << " / " << b << " = " << divide(a, b) << endl;
+            case '/':
+                cout << a << " / " << b_double << " = " << divide(a, b_double) << endl;
                 break;
-            case '^': case '5':
-                cout << a << " ^ " << b << " = " << power(a, b) << endl;
+            case '^':
+                cout << a << " ^ " << b_int << " = " << power(a, b_int) << endl;
                 break;
             default:
                 cout << "Unknown operation!" << endl;
         }
 
-        cout << "Do you want to continue the program? (y/n): ";
-        cin >> operation;
-      
-        if (operation == 'n' || operation == 'N') 
-          break;
+        cout << "Do you want to continue? (t/n): ";
+        cin >> cont;
     }
 
-    cout << "Thank you for using the calculator. See you later!" << endl;
+    cout << "Thank you for using the calculator. Goodbye!" << endl;
+
+    return 0;
 }
 
-double add(double a, double b) {
-    return a + b;
-}
+// Function definitions
+double add(double a, double b) { return a + b; }
+double subtract(double a, double b) { return a - b; }
+double multiply(double a, double b) { return a * b; }
 
-double subtract(double a, double b) {
-    return a - b;
-}
-
-double multiply(double a, double b) {
-    return a * b;
-}
-
-double divide(double a, double b) {
-    if (b != 0) return a / b;
-    else {
+double divide(double a, double b) 
+{
+    if (b == 0)
+    {
         cout << "Error: Division by zero!" << endl;
         return 0;
     }
+    return a / b;
 }
 
-double power(double a, double b) {
-    double a0 = a;
-  
-    while (b-- > 1) 
-      a *= a0;
-    return a;
+double power(double a, int b)
+{
+    double result = 1;
+
+    if (b < 0)
+    {
+        a = 1 / a;
+        b = -b;
+    }
+
+    while (b-- > 0)
+        result *= a;
+
+    return result;
 }
