@@ -1,103 +1,151 @@
 #include <iostream>
 
-// Function declarations
-double add(double a, double b);
-double subtract(double a, double b);
-double multiply(double a, double b);
-double divide(double a, double b);
-double power(double a, int b);
+// ---------------- Function Declarations ----------------
+void initMenuBox();
+void menuDecision();
+double getNumber();
+int getInt();
+double add(double, double);
+double subtract(double, double);
+double multiply(double, double);
+double divide(double, double);
+double power(double, int);
+void clearScreen();
 
-int main(){
-    std::cout << "-------------------------------------" << std::endl;
-    std::cout << "|        Calculator v 1.0           |" << std::endl;
-    std::cout << "|            Filip Bak               |" << std::endl;
-    std::cout << "-------------------------------------" << std::endl;
+// ---------------- Main ----------------
+int main() {
+    char choice = 'y';
 
-    char cont = 't';
+    do {
+        clearScreen();
+        initMenuBox();
+        menuDecision();
 
-    while (cont == 't' || cont == 'T'){
-        double a, b_double;
-        int b_int;
-        char operation;
+        do {
+            std::cout << "\nDo you want to continue? (Y/N): ";
+            std::cin >> choice;
+            std::cin.ignore(1024, '\n');
+        } while (choice != 'y' && choice != 'Y' && choice != 'n' && choice != 'N');
 
-        std::cout << "Enter the first number: ";
-        std::cin >> a;
+    } while (choice == 'y' || choice == 'Y');
 
-        std::cout << "Which operation would you like to perform?" << std::endl;
-        std::cout << "+  Addition" << std::endl;
-        std::cout << "-  Subtraction" << std::endl;
-        std::cout << "*  Multiplication" << std::endl;
-        std::cout << "/  Division" << std::endl;
-        std::cout << "^  Power (integer exponent)" << std::endl;
-
-        std::cin >> operation;
-
-        // Input for second number
-        if (operation == '^') {
-            std::cout << "Enter the exponent (integer): ";
-            std::cin >> b_int; // if user enters 2.7, it will be truncated to 2
-        } else {
-            std::cout << "Enter the second number: ";
-            std::cin >> b_double;
-        }
-
-        // Perform operation
-        switch (operation){
-            case '+':
-                std::cout << a << " + " << b_double << " = " << add(a, b_double) << std::endl;
-                break;
-            case '-':
-                std::cout << a << " - " << b_double << " = " << subtract(a, b_double) << std::endl;
-                break;
-            case '*':
-                std::cout << a << " * " << b_double << " = " << multiply(a, b_double) << std::endl;
-                break;
-            case '/':
-                std::cout << a << " / " << b_double << " = " << divide(a, b_double) << std::endl;
-                break;
-            case '^':
-                std::cout << a << " ^ " << b_int << " = " << power(a, b_int) << std::endl;
-                break;
-            default:
-                std::cout << "Unknown operation!" << std::endl;
-        }
-
-        std::cout << "Do you want to continue? (t/n): ";
-        std::cin >> cont;
-    }
-
-    std::cout << "Thank you for using the calculator. Goodbye!" << std::endl;
-
+    std::cout << "\nThank you for using the calculator.\n";
     return 0;
 }
 
-// Function definitions
-double add(double a, double b) { return a + b; }
-double subtract(double a, double b) { return a - b; }
-double multiply(double a, double b) { return a * b; }
-
-double divide(double a, double b) 
-{
-    if (b == 0)
-    {
-        std::cout << "Error: Division by zero!" << std::endl;
-        return 0;
-    }
-    return a / b;
+// ---------------- Menu ----------------
+void initMenuBox() {
+    std::cout << "-------------------------------------\n";
+    std::cout << "|           Calculator v1.0         |\n";
+    std::cout << "|             Filip Bak              |\n";
+    std::cout << "-------------------------------------\n\n";
+    std::cout << "Choose an operation:\n";
+    std::cout << "+  Addition\n";
+    std::cout << "-  Subtraction\n";
+    std::cout << "*  Multiplication\n";
+    std::cout << "/  Division\n";
+    std::cout << "^  Power (integer exponent)\n\n";
 }
 
-double power(double a, int b)
-{
-    double result = 1;
+// ---------------- MenuDecision ----------------
+void menuDecision() {
+    char operation;
+    std::cout << "Enter operation: ";
+    while (!(std::cin >> operation) || (operation != '+' && operation != '-' && operation != '*' && operation != '/' && operation != '^')) {
+        std::cin.clear();
+        std::cin.ignore(1024, '\n');
+        std::cout << "Error. Enter a valid operation: ";
+    }
 
-    if (b < 0)
-    {
+    double a = getNumber();
+
+    if (operation == '^') {
+        int exponent = getInt();
+        std::cout << "\nResult: " << a << " ^ " << exponent << " = " << power(a, exponent) << "\n";
+    }
+    else {
+        double b;
+        if (operation == '/') {
+            do {
+                b = getNumber();
+                if (b == 0)
+                    std::cout << "Error: division by zero!\n";
+            } while (b == 0);
+        }
+        else {
+            b = getNumber();
+        }
+
+        double result;
+        switch (operation) {
+        case '+': 
+            result = add(a, b); 
+            break;
+        case '-': 
+            result = subtract(a, b); 
+            break;
+        case '*': 
+            result = multiply(a, b); 
+            break;
+        case '/': 
+            result = divide(a, b); 
+            break;
+        }
+
+        std::cout << "\nResult: " << a << " " << operation << " " << b << " = " << result << "\n";
+    }
+}
+
+// ---------------- Input Functions ----------------
+double getNumber() {
+    double num;
+    std::cout << "Enter a number: ";
+    while (!(std::cin >> num)) {
+        std::cin.clear();
+        std::cin.ignore(1024, '\n');
+        std::cout << "Error. Try again: ";
+    }
+    return num;
+}
+
+int getInt() {
+    int num;
+    std::cout << "Enter an integer: ";
+    while (!(std::cin >> num)) {
+        std::cin.clear();
+        std::cin.ignore(1024, '\n');
+        std::cout << "Error. Try again: ";
+    }
+    return num;
+}
+
+// ---------------- Operations ----------------
+double add(double a, double b) { 
+    return a + b; 
+}
+
+double subtract(double a, double b) { 
+    return a - b; 
+}
+
+double multiply(double a, double b) { 
+    return a * b; 
+}
+
+double divide(double a, double b) { 
+    return a / b; 
+}
+
+double power(double a, int b) {
+    double result = 1;
+    if (b < 0) {
         a = 1 / a;
         b = -b;
     }
-
-    while (b-- > 0)
-        result *= a;
-
+    while (b--) result *= a;
     return result;
+}
+
+void clearScreen() { 
+    std::cout << "\033[2J\033[H"; 
 }
