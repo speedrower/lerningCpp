@@ -1,0 +1,140 @@
+#include <iostream>
+#define PI 3.14
+#include <string>
+
+using namespace std;
+
+void initMenuBox();
+void menuDecision(int);
+double circleArea(double);
+double squareArea(double);
+double rectangleArea(double, double);
+double triangleArea(double, double);
+void clearScreen();
+bool isRight(string);
+
+int main()
+{
+    char choice = 'T';
+    int option;
+
+    do {
+        clearScreen();
+        initMenuBox();
+        cout << "Choose an option (1-4): ";
+
+        // Menu choice validation only in the first loop
+        while (!(cin >> option) || option < 1 || option > 4) {
+            clearScreen();
+            initMenuBox();
+            cout << "You made an error. Choose an option (1-4): ";
+        }
+
+        menuDecision(option);
+
+        do {
+            cout << "Do you want to continue the program? (T/N)" << endl;
+            cin >> choice;
+            cin.ignore(1024, '\n');
+        } while (choice != 't' && choice != 'T' && choice != 'n' && choice != 'N');
+
+    } while (choice == 't' || choice == 'T');
+
+    return 0;
+}
+
+void initMenuBox() {
+    cout << "Choose an option: " << endl;
+    cout << "1. Circle area" << endl;
+    cout << "2. Square area" << endl;
+    cout << "3. Rectangle area" << endl;
+    cout << "4. Triangle area" << endl;
+}
+
+void menuDecision(int option) {
+    clearScreen();
+    double a, b;
+
+    switch (option) {
+    case 1:
+        cout << "Enter radius: ";
+        do
+            cin >> a;
+        while (!isRight("Wrong. Enter radius again: "));
+        circleArea(a);
+        break;
+
+    case 2:
+        cout << "Enter square side length: ";
+        do
+            cin >> a;
+        while (!isRight("Wrong. Enter side length again: "));
+        squareArea(a);
+        break;
+
+    case 3:
+        cout << "Enter rectangle base: ";
+        do
+            cin >> a;
+        while (!isRight("Wrong. Enter base again: "));
+        cout << "Enter rectangle height: ";
+        do
+            cin >> b;
+        while (!isRight("Wrong. Enter height again: "));
+        rectangleArea(a, b);
+        break;
+
+    case 4:
+        cout << "Enter triangle base: ";
+        do
+            cin >> a;
+        while (!isRight("Wrong. Enter base again: "));
+        cout << "Enter triangle height: ";
+        do
+            cin >> b;
+        while (!isRight("Wrong. Enter height again: "));
+        triangleArea(a, b);
+        break;
+    }
+}
+
+double circleArea(double r) {
+    double result = PI * r * r;
+    cout << "The area of a circle with radius " << r << " is " << result << endl;
+    return result;
+}
+
+double squareArea(double a) {
+    double result = a * a;
+    cout << "The area of a square with side " << a << " is " << result << endl;
+    return result;
+}
+
+double rectangleArea(double a, double b) {
+    double result = a * b;
+    cout << "The area of a rectangle with width " << a
+         << " and height " << b << " is " << result << endl;
+    return result;
+}
+
+double triangleArea(double a, double h) {
+    double result = 0.5 * a * h;
+    cout << "The area of a triangle with base " << a
+         << " and height " << h << " is " << result << endl;
+    return result;
+}
+
+void clearScreen() {
+    cout << "\033[2J\033[H";
+}
+
+bool isRight(string error_msg) {
+    if (!cin) {
+        cin.clear();
+        cin.ignore(1024, '\n');
+        clearScreen();
+        cout << error_msg;
+        return false;
+    }
+    return true;
+}
