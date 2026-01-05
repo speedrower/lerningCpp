@@ -1,7 +1,5 @@
 #include <iostream>
 
-using namespace std;
-
 // Function declarations
 double add(double a, double b);
 double subtract(double a, double b);
@@ -10,10 +8,10 @@ double divide(double a, double b);
 double power(double a, int b);
 
 int main(){
-    cout << "-------------------------------------" << endl;
-    cout << "|        Calculator v 1.0           |" << endl;
-    cout << "|            Filip Bak               |" << endl;
-    cout << "-------------------------------------" << endl;
+    std::cout << "-------------------------------------" << std::endl;
+    std::cout << "|        Calculator v 1.0           |" << std::endl;
+    std::cout << "|            Filip Bak               |" << std::endl;
+    std::cout << "-------------------------------------" << std::endl;
 
     char cont = 't';
 
@@ -22,53 +20,53 @@ int main(){
         int b_int;
         char operation;
 
-        cout << "Enter the first number: ";
-        cin >> a;
+        std::cout << "Enter the first number: ";
+        std::cin >> a;
 
-        cout << "Which operation would you like to perform?" << endl;
-        cout << "+  Addition" << endl;
-        cout << "-  Subtraction" << endl;
-        cout << "*  Multiplication" << endl;
-        cout << "/  Division" << endl;
-        cout << "^  Power (integer exponent)" << endl;
+        std::cout << "Which operation would you like to perform?" << std::endl;
+        std::cout << "+  Addition" << std::endl;
+        std::cout << "-  Subtraction" << std::endl;
+        std::cout << "*  Multiplication" << std::endl;
+        std::cout << "/  Division" << std::endl;
+        std::cout << "^  Power (integer exponent)" << std::endl;
 
-        cin >> operation;
+        std::cin >> operation;
 
         // Input for second number
         if (operation == '^') {
-            cout << "Enter the exponent (integer): ";
-            cin >> b_int; // if user enters 2.7, it will be truncated to 2
+            std::cout << "Enter the exponent (integer): ";
+            std::cin >> b_int; // if user enters 2.7, it will be truncated to 2
         } else {
-            cout << "Enter the second number: ";
-            cin >> b_double;
+            std::cout << "Enter the second number: ";
+            std::cin >> b_double;
         }
 
         // Perform operation
         switch (operation){
             case '+':
-                cout << a << " + " << b_double << " = " << add(a, b_double) << endl;
+                std::cout << a << " + " << b_double << " = " << add(a, b_double) << std::endl;
                 break;
             case '-':
-                cout << a << " - " << b_double << " = " << subtract(a, b_double) << endl;
+                std::cout << a << " - " << b_double << " = " << subtract(a, b_double) << std::endl;
                 break;
             case '*':
-                cout << a << " * " << b_double << " = " << multiply(a, b_double) << endl;
+                std::cout << a << " * " << b_double << " = " << multiply(a, b_double) << std::endl;
                 break;
             case '/':
-                cout << a << " / " << b_double << " = " << divide(a, b_double) << endl;
+                std::cout << a << " / " << b_double << " = " << divide(a, b_double) << std::endl;
                 break;
             case '^':
-                cout << a << " ^ " << b_int << " = " << power(a, b_int) << endl;
+                std::cout << a << " ^ " << b_int << " = " << power(a, b_int) << std::endl;
                 break;
             default:
-                cout << "Unknown operation!" << endl;
+                std::cout << "Unknown operation!" << std::endl;
         }
 
-        cout << "Do you want to continue? (t/n): ";
-        cin >> cont;
+        std::cout << "Do you want to continue? (t/n): ";
+        std::cin >> cont;
     }
 
-    cout << "Thank you for using the calculator. Goodbye!" << endl;
+    std::cout << "Thank you for using the calculator. Goodbye!" << std::endl;
 
     return 0;
 }
@@ -82,7 +80,7 @@ double divide(double a, double b)
 {
     if (b == 0)
     {
-        cout << "Error: Division by zero!" << endl;
+        std::cout << "Error: Division by zero!" << std::endl;
         return 0;
     }
     return a / b;
