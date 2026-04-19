@@ -1,6 +1,6 @@
 #include <iostream>
 
-// ---------------- Function Declarations ----------------
+//Function Declarations
 void initMenuBox();
 void menuDecision();
 double calculate(char operation, double a, double b);
@@ -13,7 +13,7 @@ double divide(double, double);
 double power(double, int);
 void clearScreen();
 
-// ---------------- Main ----------------
+//Main
 int main() {
     char choice = 'y';
 
@@ -34,7 +34,7 @@ int main() {
     return 0;
 }
 
-// ---------------- Menu ----------------
+//Menu
 void initMenuBox() {
     std::cout << "-------------------------------------\n";
     std::cout << "|        Calculator v1.0             |\n";
@@ -47,7 +47,7 @@ void initMenuBox() {
     std::cout << "^  Power (integer exponent)\n\n";
 }
 
-// ---------------- MenuDecision ----------------
+//MenuDecision
 void menuDecision() {
     char operation;
     std::cout << "Enter operation: ";
@@ -96,7 +96,7 @@ double calculate(char operation, double a, double b) {
     }
 }
 
-// ---------------- Input Handling ----------------
+//Input Handling
 double getNumber() {
     double num;
     while (!(std::cin >> num)) {
@@ -117,7 +117,7 @@ int getInt() {
     return num;
 }
 
-// ---------------- Operations ----------------
+//Operations
 double add(double a, double b) {
     return a + b;
 }
